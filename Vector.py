@@ -1,6 +1,5 @@
 from math import sqrt
 import copy
-from typing import Any, Callable, Union
 
 
 class Vector:
