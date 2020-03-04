@@ -8,6 +8,18 @@ class Vector:
         self.x = x
         self.y = y
 
+    def distance_to(self, other):
+        return self.way_to(other).length()
+
+    def way_to(self, other_vec):
+        return other_vec - self
+
+    def __sub__(self, other):
+        c_self = copy.copy(self)
+        c_self.x -= other.x
+        c_self.y -= other.y
+        return c_self
+
     def __copy__(self):
         return Vector(self.x, self.y)
 
@@ -43,7 +55,4 @@ if __name__ == '__main__':
     vec = Vector(4, 4)
     vec2 = Vector(9, 8)
     print(vec)
-    print(vec.unit_vector())
-    print(vec2.unit_vector())
-
-    print(vec.same_direction(vec2))
+    print(vec.way_to(vec2))
