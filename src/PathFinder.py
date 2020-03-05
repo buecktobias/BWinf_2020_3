@@ -1,9 +1,3 @@
-from Path import Path
-from Node import Node
-from Graph import Graph
-from Vector import Vector
-
-
 class PathFinder:
     """
     finds all paths from one node in a graph to another node
@@ -19,7 +13,7 @@ class PathFinder:
     starts the algorithm to find all paths
     all paths are saved in self.paths
     """
-    def start(self):
+    def _start(self):
         pass
 
     """
@@ -27,3 +21,9 @@ class PathFinder:
     """
     def _dfs(self):
         pass
+    """
+    returns all paths
+    """
+    def get_paths(self):
+        self._start()
+        return self.paths

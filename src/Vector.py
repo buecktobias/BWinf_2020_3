@@ -48,10 +48,3 @@ class Vector:
 
     def __repr__(self):
         return f"{self.x}, {self.y}"
-
-
-if __name__ == '__main__':
-    vec = Vector(4, 4)
-    vec2 = Vector(9, 8)
-    print(vec)
-    print(vec.way_to(vec2))

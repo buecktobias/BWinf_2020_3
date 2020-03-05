@@ -1,4 +1,4 @@
-from Vector import Vector
+from src.Vector import Vector
 
 
 class Node:
@@ -11,3 +11,6 @@ class Node:
 
     def add_neighbour(self, node):
         self._neighbours.add(node)
+
+    def __repr__(self):
+        return str(self.pos)
