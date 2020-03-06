@@ -46,6 +46,14 @@ class PathFinder:
             new_path.length += Graph.distance(current_node, node)
             new_path.amount_turnoffs += Graph.is_turnoff(last_node, current_node, node)
             self._dfs(node, current_node, new_path)
+
+    def get_path_least_turn_offs(self, max_percentage_extension: int):
+        factor = 1 + max_percentage_extension / 100
+        self.paths.sort(key=lambda path: path.length)
+        shortest = self.paths[0]
+        best_path = sorted(filter(lambda path: path.length / factor <= shortest.length, self.paths), key=lambda path: path.amount_turnoffs)[0]
+        return best_path
+
     """
     returns all paths
     """

@@ -1,7 +1,7 @@
 if __name__ == '__main__':
     from src.Graph import Graph
     from src.Node import Node
-    from src.PathFinder import PathFinder
+    from src.UserInterface import UserInterface
 
     n1 = Node(0, 0)
     n2 = Node(0, 1)
@@ -23,8 +23,5 @@ if __name__ == '__main__':
     Graph.add_edge(n5, n7)
     Graph.add_edge(n6, n7)
 
-    print(Graph.is_turnoff(n1, n2, n5))
-    pf = PathFinder(start_node, end_node)
-    print(pf.get_paths())
 
-
+    ui = UserInterface(start_node, end_node)
