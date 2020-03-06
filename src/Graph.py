@@ -1,6 +1,6 @@
-from src.Node import Node
-from src.Vector import Vector
-from src.PathFinder import PathFinder
+from .Node import Node
+from .Vector import Vector
+from .PathFinder import PathFinder
 
 
 class Graph:
@@ -9,8 +9,9 @@ class Graph:
 
     """
 
-    def __init__(self, node):
-        self.root_node = node
+    @staticmethod
+    def distance(node1: Node, node2: Node):
+        return node1.distance_to(node2)
 
     @staticmethod
     def is_turnoff(node1: Node, node2: Node, node3: Node):

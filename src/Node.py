@@ -6,6 +6,9 @@ class Node:
         self.pos = Vector(pos_x, pos_y)
         self._neighbours = set()
 
+    def distance_to(self, node):
+        return self.pos.distance_to(node.pos)
+
     def get_neighbours(self):
         return self._neighbours
 

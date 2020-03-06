@@ -1,9 +1,12 @@
-from src.Graph import Graph
-from src.Node import Node
-
 if __name__ == '__main__':
+    from src.Graph import Graph
+    from src.Node import Node
+
+    num = 2
+    num += False
+    print(num)
+
     n1 = Node(0, 0)
-    graph = Graph(n1)
     n2 = Node(0, 1)
     n3 = Node(1, 1)
     n4 = Node(0, 2)

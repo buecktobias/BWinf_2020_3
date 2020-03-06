@@ -1,5 +1,5 @@
 import dataclasses
-from typing import List
+from typing import Set
 
 from src.Node import Node
 
@@ -8,4 +8,7 @@ from src.Node import Node
 class Path:
     length: float
     amount_turnoffs: int
-    nodes: List[Node]
+    nodes: Set[Node]
+
+    def __copy__(self):
+        return Path(length=self.length, amount_turnoffs=self.amount_turnoffs, nodes=self.nodes)
