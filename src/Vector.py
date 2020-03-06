@@ -31,7 +31,10 @@ class Vector:
 
     def unit_vector(self):
         copy_self = copy.copy(self)
-        copy_self.for_each(lambda el: el / self.length())
+        if self.length() != 0:
+            copy_self.for_each(lambda el: el / self.length())
+        else:
+            copy_self.for_each(lambda x: 0)
         return copy_self
 
     def same_direction(self, other):
@@ -43,8 +46,11 @@ class Vector:
 
         return c_self.unit_vector() == c_other.unit_vector()
 
+    def __hash__(self):
+        return hash((self.x, self.y))
+
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
 
     def __repr__(self):
-        return f"{self.x}, {self.y}"
+        return f"({self.x}, {self.y})"

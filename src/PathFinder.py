@@ -21,19 +21,22 @@ class PathFinder:
     all paths are saved in self.paths
     """
     def _start(self):
-        pass
+        self._dfs(self.from_node, self.from_node, Path(0, 0, []))  # division by zero , cause zero-length vector
 
     """
-    _dfs() is intern called to find all paths from one node to another
+    _dfs() is intern called to selffind all paths from one node to another
     """
     def _dfs(self,
              current_node: Node,
              last_node: Node,
              path: Path,
              ):
-        path.nodes.add(current_node)
+        path.add_node(current_node)
         for node in current_node.get_neighbours():
             if node == self.to_node:
+                path.add_node(self.to_node)
+                path.length += Graph.distance(current_node, node)
+                path.amount_turnoffs += Graph.is_turnoff(last_node, current_node, node)
                 self.paths.append(path)
                 break
             if node in path.nodes:
@@ -47,5 +50,6 @@ class PathFinder:
     returns all paths
     """
     def get_paths(self):
-        self._start()
+        if len(self.paths) == 0:
+            self._start()
         return self.paths
