@@ -1,8 +1,9 @@
-if __name__ == '__main__':
-    from src.Graph import Graph
-    from src.Node import Node
-    from src.UserInterface import UserInterface
+from src.Graph import Graph
+from src.Node import Node
+from src.UserInterface import UserInterface
 
+
+def create_test_graph():
     n1 = Node(0, 0)
     n2 = Node(0, 1)
     n3 = Node(1, 1)
@@ -23,5 +24,9 @@ if __name__ == '__main__':
     Graph.add_edge(n5, n7)
     Graph.add_edge(n6, n7)
 
+    return start_node, end_node
 
+
+if __name__ == '__main__':
+    start_node, end_node = create_test_graph()
     ui = UserInterface(start_node, end_node)
