@@ -20,7 +20,7 @@ class PathFinder:
     starts the algorithm to find all paths
     all paths are saved in self.paths
     """
-    def _start(self):
+    def start(self):
         self._dfs(self.from_node, self.from_node, Path(0, 0, []))  # division by zero , cause zero-length vector
 
     """
@@ -59,5 +59,5 @@ class PathFinder:
     """
     def get_paths(self):
         if len(self.paths) == 0:
-            self._start()
+            self.start()
         return self.paths
