@@ -13,15 +13,6 @@ class Vector:
     def way_to(self, other_vec):
         return other_vec - self
 
-    def __sub__(self, other):
-        c_self = copy.copy(self)
-        c_self.x -= other.x
-        c_self.y -= other.y
-        return c_self
-
-    def __copy__(self):
-        return Vector(self.x, self.y)
-
     def for_each(self, func):
         self.x = func(self.x)
         self.y = func(self.y)
@@ -39,12 +30,22 @@ class Vector:
 
     def same_direction(self, other):
         round_2 = lambda el: round(el, 2)
+
         c_self = copy.copy(self)
         c_other = copy.copy(other)
         c_self.for_each(round_2)
         c_other.for_each(round_2)
 
         return c_self.unit_vector() == c_other.unit_vector()
+
+    def __sub__(self, other):
+        c_self = copy.copy(self)
+        c_self.x -= other.x
+        c_self.y -= other.y
+        return c_self
+
+    def __copy__(self):
+        return Vector(self.x, self.y)
 
     def __hash__(self):
         return hash((self.x, self.y))

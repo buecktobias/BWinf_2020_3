@@ -12,17 +12,17 @@ def create_test_graph():
     n6 = Node(0, 3)
     n7 = Node(1, 3)
 
-    start_node = n1
-    end_node = n7
-
-    Graph.add_edge(n1, n2)
-    Graph.add_edge(n2, n3)
-    Graph.add_edge(n2, n4)
-    Graph.add_edge(n4, n6)
-    Graph.add_edge(n2, n5)
-    Graph.add_edge(n3, n5)
-    Graph.add_edge(n5, n7)
-    Graph.add_edge(n6, n7)
+    start_node: Node = n1
+    end_node: Node = n7
+    graph = Graph()
+    graph.add_edge(n1, n2)
+    graph.add_edge(n2, n3)
+    graph.add_edge(n2, n4)
+    graph.add_edge(n4, n6)
+    graph.add_edge(n2, n5)
+    graph.add_edge(n3, n5)
+    graph.add_edge(n5, n7)
+    graph.add_edge(n6, n7)
 
     return start_node, end_node
 
