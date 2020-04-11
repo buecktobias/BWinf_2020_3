@@ -8,7 +8,9 @@ from src.Settings import INFINITY
 
 class BestPaths:
 
-    def __init__(self, from_node):
+    def __init__(self, from_node, max_path_length, max_turnoffs):
+        self.max_turnoffs = max_turnoffs
+        self.max_path_length = max_path_length
         graph = Graph.get_instance()
         nodes = list(graph.nodes)
 
@@ -18,14 +20,13 @@ class BestPaths:
         """
 
         self.best_paths_nodes: Dict[Node, List[Path]] = {node: [Path(INFINITY, INFINITY, [])] for node in nodes}
-        self.best_paths_nodes[from_node] = Path(0, 0, [])
+        self.new_paths_to_node([Path(0, 0, [])], from_node)
 
     def get_best_paths_to(self, to_node: Node) -> List[Path]:
         return self.best_paths_nodes[to_node]
 
     """
     Gets the paths with the least turn offs, which path length is lower than @param length_bound
-    
     """
 
     def get_path_least_turn_offs(self, node: Node, length_bound: float) -> Path:
@@ -45,4 +46,3 @@ class BestPaths:
 
     def new_paths_to_node(self, new_paths: List[Path], node: Node) -> List[Path]:  # TODO or set ?
         pass
-
