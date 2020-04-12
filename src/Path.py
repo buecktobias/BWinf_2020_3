@@ -12,6 +12,15 @@ class Path:
     # TODO set ?
 
     @staticmethod
+    def filter_paths_unuseable(paths: List, maximum_turnoffs, maximum_length):
+        # TODO filter all paths which have more than maximum_turnoffs, maximum_length
+        # TODO sort elements by turnoffs, or insert new faster ?? binary search v * log(n) or sorting: v+n * log(v+n)...
+        # TODO kicking out all paths which are longer and have more turnoffs !!! also filter ???
+        # for loop save most least turnoffs least length pair ??????
+        pass
+
+
+    @staticmethod
     def get_paths_shorter_than(paths: List, length: float) -> List:
         return list(filter(lambda path: path.length < length, paths))
 
