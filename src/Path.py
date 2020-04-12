@@ -1,6 +1,6 @@
 import dataclasses
 from typing import List, Tuple
-
+from src.Graph import Graph
 from src.Node import Node
 
 
@@ -9,16 +9,24 @@ class Path:
     length: float
     amount_turnoffs: int
     nodes: List[Node]
-    # TODO set ?
+
+    def best_possible_turnoffs(self, to_node: Node):
+        nodes = self.get_last_two_nodes()
+        is_turnoff = Graph.is_turnoff(*nodes, to_node)
+        if is_turnoff:
+            return self.amount_turnoffs + 1
+        else:
+            return self.amount_turnoffs
+
+    def best_possible_length(self, to_node: Node):
+        distance_to_target_node = self.get_last_node().distance_to(to_node)
+        return self.length + distance_to_target_node
 
     @staticmethod
-    def filter_paths_unuseable(paths: List, maximum_turnoffs, maximum_length):
-        # TODO filter all paths which have more than maximum_turnoffs, maximum_length
-        # TODO sort elements by turnoffs, or insert new faster ?? binary search v * log(n) or sorting: v+n * log(v+n)...
-        # TODO kicking out all paths which are longer and have more turnoffs !!! also filter ???
-        # for loop save most least turnoffs least length pair ??????
-        pass
-
+    def filter_paths_unuseable(paths: List, maximum_turnoffs: int, maximum_length: float, to_node: Node):
+        paths_possible_useable = list(filter(lambda path: path.best_possible_length(to_node) <= maximum_length and path.best_possible_turnoffs(to_node) <= maximum_turnoffs, paths))
+        useable_paths = list(filter(lambda path: not all([other_path.  for other_path in paths_possible_useable ])))
+        # TODO  ?? was geht ab haha
 
     @staticmethod
     def get_paths_shorter_than(paths: List, length: float) -> List:
