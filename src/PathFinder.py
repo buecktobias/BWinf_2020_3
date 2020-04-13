@@ -7,14 +7,18 @@ from typing import List
 from src.Node import Node
 from src.Path import Path
 from src.BestPaths import BestPaths
+from src.Settings import INFINITY
 
 
 class PathFinder:
 
     def __init__(self, from_node, to_node):
+        self.max_path_length = INFINITY
+        self.max_turnoffs = INFINITY
         self.from_node = from_node
         self.to_node = to_node
-        self.best_paths = BestPaths(from_node)
+
+        self.best_paths = BestPaths(from_node, to_node, self.max_path_length, self.max_turnoffs)
 
     def start(self):
         self._dfs(self.from_node)
@@ -37,7 +41,7 @@ class PathFinder:
                     c_path = copy.copy(path)
                     new_paths.append(c_path)
 
-            new_useable_paths: List[Path] = self.best_paths.new_paths_to_node(new_paths, self.best_paths.get_best_paths_to(neighbour))
+            new_useable_paths: List[Path] = self.best_paths.new_paths_to_node(new_paths, neighbour)
             if len(new_useable_paths) > 0:
                 self._dfs(neighbour, new_useable_paths)
 
