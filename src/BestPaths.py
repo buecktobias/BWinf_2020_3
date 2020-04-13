@@ -57,11 +57,16 @@ class BestPaths:
         paths = self.get_best_paths_to(node)
         useable_paths = Path.filter_paths_unuseable(paths, self.max_turnoffs, self.max_path_length, self.to_node)
         self.set_best_paths_to(node, useable_paths)
-        return list(set(paths) - set(useable_paths))
+        return list(set(useable_paths))
     """
     Adds new paths to a node and returns a list of paths which are an improvement
     """
 
     def new_paths_to_node(self, new_paths: List[Path], node: Node) -> List[Path]:  # TODO or set ?
         self.add_best_paths_to(node, new_paths)
-        return self.remove_unusable_paths(node)
+        useable_paths = self.remove_unusable_paths(node)
+        improvement_paths = []
+        for new_path in new_paths:
+            if new_path in useable_paths:
+                improvement_paths.append(new_path)
+        return improvement_paths

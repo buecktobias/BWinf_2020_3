@@ -85,10 +85,10 @@ class Path:
         if nodes_before is not None:
             if Graph.is_turnoff(*nodes_before, node):
                 self.amount_turnoffs += 1
-        else:
-            last_node = self.get_last_node()
+        last_node = self.get_last_node()
+        if last_node is not None:
             self.length += last_node.distance_to(node)
-            self._add_node(node)
+        self._add_node(node)
 
     def _add_node(self, node: Node):
         self.nodes.append(node)

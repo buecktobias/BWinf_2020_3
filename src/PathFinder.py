@@ -29,7 +29,7 @@ class PathFinder:
 
     def _dfs(self, current_node: Node, paths: List[Path] = None):
         if paths is not None:
-           new_paths_to_current_node = paths
+           new_paths_to_current_node = list(set(paths))
         else:
             new_paths_to_current_node: List[Path] = self.best_paths.get_best_paths_to(current_node)
 
