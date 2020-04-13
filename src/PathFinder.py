@@ -39,8 +39,11 @@ class PathFinder:
             for path in new_paths_to_current_node:
                 if not path.has_node(neighbour):
                     c_path = copy.copy(path)
+                    c_path.add_node(neighbour)
                     new_paths.append(c_path)
 
+
+            # TODO error
             new_useable_paths: List[Path] = self.best_paths.new_paths_to_node(new_paths, neighbour)
             if len(new_useable_paths) > 0:
                 self._dfs(neighbour, new_useable_paths)

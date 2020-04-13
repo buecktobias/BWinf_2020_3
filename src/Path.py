@@ -30,8 +30,9 @@ class Path:
 
     @staticmethod
     def filter_paths(path, paths_possible_useable):
-        return not all([other_path.length < path.length and other_path.amount_turnoffs < path.amount_turnoffs for other_path in
-                 paths_possible_useable])
+        # TODO test
+        # nicht alle sollen kürzere Wege haben und weniger Abbiegungen
+        return not any([other_path.length < path.length and other_path.amount_turnoffs < path.amount_turnoffs for other_path in paths_possible_useable])
 
     @staticmethod
     def filter_paths_unuseable(paths: List, maximum_turnoffs: int, maximum_length: float, to_node: Node):
@@ -81,11 +82,13 @@ class Path:
 
     def add_node(self, node: Node):
         nodes_before = self.get_last_two_nodes()
-        if Graph.is_turnoff(*nodes_before, node):
-            self.amount_turnoffs += 1
-        last_node = self.get_last_node()
-        self.length += last_node.distance_to(node)
-        self._add_node(node)
+        if nodes_before is not None:
+            if Graph.is_turnoff(*nodes_before, node):
+                self.amount_turnoffs += 1
+        else:
+            last_node = self.get_last_node()
+            self.length += last_node.distance_to(node)
+            self._add_node(node)
 
     def _add_node(self, node: Node):
         self.nodes.append(node)
@@ -95,3 +98,9 @@ class Path:
 
     def __copy__(self):
         return Path(length=self.length, amount_turnoffs=self.amount_turnoffs, nodes=self.nodes[:])
+
+
+if __name__ == '__main__':
+    test_paths = [Path(3, 0, []), Path(2, 7, []), Path(5, 5, []), Path(10, 10, [])]
+    useable_paqths = Path.filter_paths_unuseable(test_paths, 999, 999, Node(10, 10))
+    print(useable_paqths)
