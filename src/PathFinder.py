@@ -34,6 +34,8 @@ class PathFinder:
             new_paths_to_current_node: List[Path] = self.best_paths.get_best_paths_to(current_node)
 
         neighbours = current_node.get_neighbours()
+
+        # TODO sort neighbours by relevance
         for neighbour in neighbours:
             new_paths = []
             for path in new_paths_to_current_node:
