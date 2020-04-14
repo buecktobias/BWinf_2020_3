@@ -29,6 +29,8 @@ class BestPaths:
         self.best_paths_nodes[from_node] = [Path(0, 0, [from_node])]
 
     def new_path_to_target_node_found(self):
+        if len(self.get_best_paths_to(self.to_node)) == 0:
+            return
         best_path = self.get_path_least_turn_offs(self.to_node, self.max_path_length)
         self.best_length_found = best_path.length
         self.best_turnoffs = best_path.amount_turnoffs
@@ -42,9 +44,9 @@ class BestPaths:
             raise ValueError("node must be of type Node")
 
     def set_best_paths_to(self, node: Node, paths: List[Path]):
+        self.best_paths_nodes[node] = paths
         if node == self.to_node:
             self.new_path_to_target_node_found()
-        self.best_paths_nodes[node] = paths
 
     def get_best_paths_to(self, to_node: Node) -> List[Path]:
         return self.best_paths_nodes[to_node]
