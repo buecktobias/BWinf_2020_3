@@ -1,9 +1,9 @@
 from typing import List, Dict
 
-from src.Graph import Graph
-from src.Node import Node
-from src.Path import Path
-from src.Settings import INFINITY
+from src.graph.Graph import Graph
+from src.graph.Node import Node
+from src.paths.Path import Path
+from src.settings.Settings import INFINITY
 
 
 class BestPaths:

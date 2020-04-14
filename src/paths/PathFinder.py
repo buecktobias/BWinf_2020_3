@@ -4,10 +4,10 @@ from typing import List
 
 # PROJECT IMPORTS
 
-from src.Node import Node
-from src.Path import Path
-from src.BestPaths import BestPaths
-from src.Settings import INFINITY
+from src.graph.Node import Node
+from src.paths.Path import Path
+from src.paths.BestPaths import BestPaths
+from src.settings.Settings import INFINITY
 
 
 class PathFinder:
@@ -18,7 +18,7 @@ class PathFinder:
         self.from_node = from_node
         self.to_node = to_node
 
-        self.best_paths = BestPaths(from_node, to_node, self.max_path_length, self.max_turnoffs)
+        self.best_paths = BestPaths(from_node, to_node, self.max_path_length)
 
     def start(self):
         self._dfs(self.from_node)

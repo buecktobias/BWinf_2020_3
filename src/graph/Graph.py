@@ -1,5 +1,5 @@
-from .Node import Node
-from .Vector import Vector
+from src.graph.Node import Node
+from src.math.Vector import Vector
 
 
 class Graph:

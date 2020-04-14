@@ -1,4 +1,4 @@
-from src.Vector import Vector
+from src.math.Vector import Vector
 
 
 class Node:

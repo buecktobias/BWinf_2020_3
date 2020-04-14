@@ -1,4 +1,4 @@
-from src.PathFinder import PathFinder
+from src.paths.PathFinder import PathFinder
 
 """
 

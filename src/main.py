@@ -1,6 +1,6 @@
-from src.Graph import Graph
-from src.Node import Node
-from src.UserInterface import UserInterface
+from src.graph.Graph import Graph
+from src.graph.Node import Node
+from src.IO.UserInterface import UserInterface
 
 
 def create_test_graph():

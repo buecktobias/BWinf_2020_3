@@ -1,7 +1,7 @@
 import dataclasses
 from typing import List, Tuple, Optional
-from src.Graph import Graph
-from src.Node import Node
+from src.graph.Graph import Graph
+from src.graph.Node import Node
 
 
 @dataclasses.dataclass
