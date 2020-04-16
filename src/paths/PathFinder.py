@@ -12,16 +12,16 @@ from src.settings.Settings import INFINITY
 
 class PathFinder:
 
-    def __init__(self, from_node, to_node):
+    def __init__(self, start_node, target_node):
         self.max_path_length = INFINITY
         self.max_turnoffs = INFINITY
-        self.from_node = from_node
-        self.to_node = to_node
+        self.start_node = start_node
+        self.target_node = target_node
 
-        self.best_paths = BestPaths(from_node, to_node, self.max_path_length)
+        self.best_paths = BestPaths(start_node, target_node, self.max_path_length)
 
     def start(self):
-        self._dfs(self.from_node)
+        self._dfs(self.start_node)
 
     """
     _dfs() is intern called to selffind all paths from one node to another
@@ -52,7 +52,7 @@ class PathFinder:
 
     def get_path_least_turn_offs(self, max_percentage_extension: int):
         factor: float = max_percentage_extension / 100
-        best_paths_to_target_node: List[Path] = self.best_paths.get_best_paths_to(self.to_node)
+        best_paths_to_target_node: List[Path] = self.best_paths.get_best_paths_to(self.target_node)
 
         if len(best_paths_to_target_node) == 0:
             raise(ValueError("There are no paths to the target node found!!"))

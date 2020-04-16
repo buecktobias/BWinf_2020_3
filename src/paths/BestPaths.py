@@ -8,11 +8,11 @@ from src.settings.Settings import INFINITY
 
 class BestPaths:
 
-    def __init__(self, from_node: Node, to_node: Node, max_path_length: float):
+    def __init__(self, from_node: Node, to_node: Node, max_path_length_to_target_node: float):
         self.from_node = from_node
         self.to_node = to_node
 
-        self.max_path_length = max_path_length
+        self.max_path_length = max_path_length_to_target_node
 
         self.best_length_found = INFINITY
         self.best_turnoffs = INFINITY
