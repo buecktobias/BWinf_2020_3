@@ -47,22 +47,27 @@ class Path:
         return list(filter(lambda path: path.length < length, paths))
 
     @staticmethod
-    def get_path_least_turn_offs_shorter_than(paths: List, max_length: float):
-        shorter_paths: List = Path.get_paths_shorter_than(paths, max_length)
-        path_least_turnoffs = Path.get_path_least_turnoffs(shorter_paths)
+    def get_path_least_turn_offs_shorter_than(paths: list, max_length: float):
+        shorter_paths: list = Path.get_paths_shorter_than(paths, max_length)
+        path_least_turnoffs: Path = Path.get_path_least_turnoffs(shorter_paths)
         return path_least_turnoffs
 
     @staticmethod
     def get_length_of_shortest_path(paths: List) -> float:
-        return Path.get_shortest_path(paths).length
+        shortest_path = Path.get_shortest_path(paths)
+        if shortest_path is not None:
+            return shortest_path.length
 
     @staticmethod
-    def get_path_least_turnoffs(paths: List):
+    def get_path_least_turnoffs(paths: list):
         return min(paths, key=lambda path: path.amount_turnoffs)
 
     @staticmethod
     def get_shortest_path(paths: List):  # list of Paths -> Path
-        return min(paths, key=lambda path: path.length)
+        if len(paths) > 0:
+            return min(paths, key=lambda path: path.length)
+        else:
+            return None
 
     def has_node(self, node: Node):
         # TODO set ? faster but more space

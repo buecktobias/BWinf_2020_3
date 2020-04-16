@@ -53,9 +53,14 @@ class PathFinder:
     def get_path_least_turn_offs(self, max_percentage_extension: int):
         factor: float = max_percentage_extension / 100
         best_paths_to_target_node: List[Path] = self.best_paths.get_best_paths_to(self.to_node)
-        shortest = Path.get_length_of_shortest_path(best_paths_to_target_node)
 
-        max_path_length: float = shortest * (factor + 1)
+        if len(best_paths_to_target_node) == 0:
+            raise(ValueError("There are no paths to the target node found!!"))
 
-        best_path = Path.get_path_least_turn_offs_shorter_than(best_paths_to_target_node, max_path_length)
+        shortest: float = Path.get_length_of_shortest_path(best_paths_to_target_node)
+        if shortest is not None:
+            max_path_length: float = shortest * (factor + 1)
+        else:
+            max_path_length: float = INFINITY
+        best_path: Path = Path.get_path_least_turn_offs_shorter_than(best_paths_to_target_node, max_path_length)
         return best_path

@@ -45,8 +45,10 @@ class BestPaths:
 
     def set_best_paths_to(self, node: Node, paths: List[Path]):
         self.best_paths_nodes[node] = paths
+        """
         if node == self.to_node:
             self.new_path_to_target_node_found()
+        """
 
     def get_best_paths_to(self, to_node: Node) -> List[Path]:
         return self.best_paths_nodes[to_node]
