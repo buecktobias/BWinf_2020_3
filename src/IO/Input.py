@@ -1,3 +1,5 @@
+from typing import Dict, Tuple
+
 from src.graph import Graph, Node
 from src.settings import Settings
 import os
@@ -17,18 +19,34 @@ class Input:
 
     def create_graph(self, file_name):
         lines = self.read_file(file_name)
-        start_node = Node.Node(*coordinates(lines[1]))
-        target_node = Node.Node(*coordinates(lines[2]))
+        start_node_cords = coordinates(lines[1])
+        target_node_cords = coordinates(lines[2])
+
+        nodes_dict: Dict[Tuple[int, int], Node] = {}
 
         for i in range(3, len(lines)):
             line = lines[i]
             if len(line.split(" ")) > 1:
                 from_node_cords, to_node_cords = line.split(" ", 1)
+                from_node_cords = coordinates(from_node_cords)
+                to_node_cords = coordinates(to_node_cords)
+                if from_node_cords in nodes_dict:
+                    from_node = nodes_dict[from_node_cords]
+                else:
+                    from_node = Node.Node(*from_node_cords)
 
-                from_node = Node.Node(*coordinates(from_node_cords))
-                to_node = Node.Node(*coordinates(to_node_cords))
+                if to_node_cords in nodes_dict:
+                    to_node = nodes_dict[to_node_cords]
+                else:
+                    to_node = Node.Node(*to_node_cords)
+                nodes_dict[from_node_cords] = from_node
+                nodes_dict[to_node_cords] = to_node
                 self.graph.add_edge(from_node, to_node)
+            else:
+                raise ValueError("Die Zeile ist falsch lol!")
 
+        start_node = nodes_dict[start_node_cords]
+        target_node = nodes_dict[target_node_cords]
         return start_node, target_node
 
     def read_file(self, file_name):
@@ -38,3 +56,7 @@ class Input:
 
         lines = text.split("\n")
         return lines
+
+
+if __name__ == '__main__':
+    print(coordinates("(2,33333)"))

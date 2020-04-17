@@ -1,7 +1,6 @@
 from src.graph.Graph import Graph
 from src.graph.Node import Node
 from src.IO.UserInterface import UserInterface
-from src.IO.Input import Input
 
 
 def create_test_graph():

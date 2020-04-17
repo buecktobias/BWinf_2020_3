@@ -19,7 +19,8 @@ class Graph:
         self.__class__.instance = self
         
     def add_node(self, node):
-        self.nodes.add(node)
+        if node not in self.nodes:
+            self.nodes.add(node)
 
     @staticmethod
     def distance(node1: Node, node2: Node):

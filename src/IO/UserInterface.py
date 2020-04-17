@@ -20,7 +20,6 @@ class UserInterface:
             self._input()
             self._process()
             self._output()
-            # TODO safe results!
 
     def _check_percentage_extension(self):
         return self.percentage_extension > 0
@@ -35,7 +34,6 @@ class UserInterface:
         self.start_node = start_node
         self.target_node = target_node
         self.graph = file_input.graph
-
         input_prompt = "Bitte geben sie die maximale prozentuale Verlängerung ein!"
         self.percentage_extension = int(input(input_prompt))
         if not self._check_percentage_extension():
