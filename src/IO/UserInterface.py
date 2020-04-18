@@ -41,7 +41,7 @@ class UserInterface:
 
     # PROCESS
     def _process(self):
-        pf = PathFinder(self.start_node, self.target_node)
+        pf = PathFinder(self.start_node, self.target_node, self.graph, self.percentage_extension)
         pf.start()
         self.result = pf.get_path_least_turn_offs(self.percentage_extension)
 

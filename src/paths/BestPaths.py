@@ -4,20 +4,19 @@ from src.graph.Graph import Graph
 from src.graph.Node import Node
 from src.paths.Path import Path
 from src.settings.Settings import INFINITY
-
+from src.math.Percentage import factor_by_percentage
 
 class BestPaths:
 
-    def __init__(self, from_node: Node, to_node: Node, max_path_length_to_target_node: float):
+    def __init__(self, from_node: Node, to_node: Node, graph: Graph, max_percentage: float):
         self.from_node = from_node
         self.to_node = to_node
 
-        self.max_path_length = max_path_length_to_target_node
+        self.max_percentage = max_percentage
 
         self.best_length_found = INFINITY
         self.best_turnoffs = INFINITY
 
-        graph = Graph.get_instance()
         nodes = list(graph.nodes)
 
         """
@@ -28,12 +27,16 @@ class BestPaths:
         self.__best_paths_nodes: Dict[Node, List[Path]] = {node: [Path(INFINITY, INFINITY, [])] for node in nodes}
         self.__best_paths_nodes[from_node] = [Path(0, 0, [from_node])]
 
-    def new_path_to_target_node_found(self):
-        if len(self.get_best_paths_to(self.to_node)) == 0:
-            return
-        best_path = self.get_best_paths_to(self.to_node)[0]
-        self.best_length_found = best_path.length
-        self.best_turnoffs = best_path.amount_turnoffs
+    def get_current_max_path_length(self):
+        return factor_by_percentage(self.best_length_found, self.max_percentage)
+
+    def new_path_to_target_node_found(self, node, new_paths):
+        best_path = Path.get_path_least_turn_offs_shorter_than(new_paths, self.get_current_max_path_length())
+        if best_path is not None:
+            self.best_turnoffs = best_path.amount_turnoffs
+
+        self.best_length_found = Path.get_length_of_shortest_path(new_paths)
+
 
     def add_best_paths_to(self, node: Node, paths: List[Path]):
         if isinstance(node, Node):
@@ -44,11 +47,11 @@ class BestPaths:
             raise ValueError("node must be of type Node")
 
     def set_best_paths_to(self, node: Node, paths: List[Path]):
-        self.__best_paths_nodes[node] = paths
-        """
-        if node == self.to_node:
-            self.new_path_to_target_node_found()
-        """
+        if len(paths) > 0:
+            self.__best_paths_nodes[node] = paths
+
+            if node == self.to_node:
+                self.new_path_to_target_node_found(node, paths)
 
     def get_best_paths_to(self, to_node: Node) -> List[Path]:
         return self.__best_paths_nodes[to_node]
@@ -68,7 +71,7 @@ class BestPaths:
 
     def remove_unusable_paths(self, node) -> List[Path]:
         paths = self.get_best_paths_to(node)
-        useable_paths = Path.filter_paths_unuseable(paths, self.best_turnoffs, self.best_length_found,  self.to_node)
+        useable_paths = Path.filter_paths_unuseable(paths, self.best_turnoffs, self.get_current_max_path_length(),  self.to_node)
         self.set_best_paths_to(node, useable_paths)
         return list(set(useable_paths))
     """

@@ -12,13 +12,13 @@ from src.settings.Settings import INFINITY
 
 class PathFinder:
 
-    def __init__(self, start_node, target_node):
+    def __init__(self, start_node, target_node, graph, max_percentage_extension):
         self.max_path_length = INFINITY
         self.max_turnoffs = INFINITY
         self.start_node = start_node
         self.target_node = target_node
 
-        self.best_paths = BestPaths(start_node, target_node, self.max_path_length)
+        self.best_paths = BestPaths(start_node, target_node, graph, max_percentage_extension)
 
     def start(self):
         self._dfs(self.start_node)
