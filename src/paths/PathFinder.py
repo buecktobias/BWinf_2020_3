@@ -8,6 +8,7 @@ from src.graph.Node import Node
 from src.paths.Path import Path
 from src.paths.BestPaths import BestPaths
 from src.settings.Settings import INFINITY
+from src.priority_queue import PriorityQueue, Item
 
 
 class PathFinder:
@@ -21,7 +22,15 @@ class PathFinder:
         self.best_paths = BestPaths(start_node, target_node, graph, max_percentage_extension)
 
     def start(self):
-        self._dfs(self.start_node)
+        pq = PriorityQueue.PriorityQueue()
+        first_item = Item.Item(self.best_paths.get_best_paths_to(self.start_node)[0])
+        pq.put(first_item)
+        while not pq.empty():
+            next_node = self.get_next_node(pq)
+            self._dfs(next_node)
+
+    def get_next_node(self, pq):
+        pass
 
     """
     _dfs() is intern called to selffind all paths from one node to another
@@ -48,6 +57,7 @@ class PathFinder:
             # TODO error
             new_useable_paths: List[Path] = self.best_paths.new_paths_to_node(new_paths, neighbour)
             if len(new_useable_paths) > 0:
+                # TODO add to priority queue
                 self._dfs(neighbour, new_useable_paths)
 
     def get_path_least_turn_offs(self, max_percentage_extension: int):
